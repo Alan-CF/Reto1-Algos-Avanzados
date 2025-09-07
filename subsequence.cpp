@@ -2,12 +2,11 @@
 #include <string>
 using namespace std;
 
-bool isSubsecuence(const string &str, const string &pattern) {
-    for (size_t i = 0; i < str.size(); i++) {
+int subsecuenceIdx(const string &str, const string &pattern) {
+    for (int i = 0; i + pattern.size() <= str.size(); i++) {
         if (str.substr(i, pattern.size()) == pattern) {
-            return true;
+            return i;
         }
     }
-    return false;
+    return -1;
 }
-

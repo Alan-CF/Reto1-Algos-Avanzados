@@ -20,13 +20,13 @@ string readFile(const string& filePath)
 
 int main()
 {
-    string mCodePaths[3] = {
+    const string mCodePaths[3] = {
         "../txts/mcode1.txt",
         "../txts/mcode2.txt",
         "../txts/mcode3.txt"
     };
 
-    string transmissionPaths[2] = {
+    const string transmissionPaths[2] = {
         "../txts/transmission1.txt",
         "../txts/transmission2.txt"
     };
@@ -44,10 +44,10 @@ int main()
     // Subsequence check
     for (size_t i = 0; i < transmissions.size(); i++) {
         for (size_t j = 0; j < mCodes.size(); j++) {
-            if (isSubsecuence(transmissions[i], mCodes[j])) {
-                cout << "MCode found: " << mCodes[j] << " in " << transmissionPaths[i] << "\n";
+            if (const int idx = subsecuenceIdx(transmissions[i], mCodes[j]); idx != -1) {
+                cout << "Found malicious code " << mCodes[j] << " in " << transmissionPaths[i] << " at index: " << idx << "\n";
             } else {
-                cout << "MCode not found: " << mCodes[j] << " in " << transmissionPaths[i] << "\n";
+                cout << "Malicious code " << mCodes[j] << " not found in " << transmissionPaths[i] << "\n";
             }
         }
     }
