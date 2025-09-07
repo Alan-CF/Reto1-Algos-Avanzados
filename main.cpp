@@ -1,23 +1,56 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <array>
+#include "subsequence.h"
 
-std::string readFile(const std::string& filePath)
+using namespace std;
+
+string readFile(const string& filePath)
 {
-    std::ifstream file(filePath);
+    ifstream file(filePath);
     if (!file.is_open()) {
-        std::cerr << "File could not be opened.\n";
+        cerr << "File could not be opened.\n";
     }
-    std::string content;
-    std::getline(file, content);
+    string content;
+    getline(file, content);
 
     return content;
 }
 
 int main()
 {
-    std::string filePath = "../txts/mcode1.txt";
-    std::string content = readFile(filePath);
-    std::cout << "File content: " << content << std::endl;
+    string mCodePaths[3] = {
+        "../txts/mcode1.txt",
+        "../txts/mcode2.txt",
+        "../txts/mcode3.txt"
+    };
+
+    string transmissionPaths[2] = {
+        "../txts/transmission1.txt",
+        "../txts/transmission2.txt"
+    };
+
+    array<string, 3> mCodes;
+    array<string, 2> transmissions;
+
+    for (size_t i = 0; i < mCodes.size(); i++) {
+        mCodes[i] = readFile(mCodePaths[i]);
+    }
+    for (size_t i = 0; i < transmissions.size(); i++) {
+        transmissions[i] = readFile(transmissionPaths[i]);
+    }
+
+    // Subsequence check
+    for (size_t i = 0; i < transmissions.size(); i++) {
+        for (size_t j = 0; j < mCodes.size(); j++) {
+            if (isSubsecuence(transmissions[i], mCodes[j])) {
+                cout << "MCode found: " << mCodes[j] << " in " << transmissionPaths[i] << "\n";
+            } else {
+                cout << "MCode not found: " << mCodes[j] << " in " << transmissionPaths[i] << "\n";
+            }
+        }
+    }
+
     return 0;
 }
