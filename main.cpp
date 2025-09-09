@@ -4,6 +4,7 @@
 #include <array>
 #include "subsequence.h" //parte 1
 #include "palindrome.h" //parte 2
+#include "huffman.h" //parte 4
 
 using namespace std;
 
@@ -43,6 +44,7 @@ int main()
     const string& m3 = mCodes[2];
 
     // ---------- Parte 1: Subsequence check --------
+    // Part 1 - Subsequence check
     for (size_t i = 0; i < transmissions.size(); i++) {
         for (size_t j = 0; j < mCodes.size(); j++) {
             if (const int idx = subsecuenceIdx(transmissions[i], mCodes[j]); idx != -1) {
@@ -65,6 +67,27 @@ int main()
 
     // -------- Parte 4: Huffman --------
 
+
+    // Part 4 - Huffman Coding
+    for (size_t i = 0; i < transmissions.size(); i++) {
+        HuffmanCoding huffman;
+        huffman.buildFromText(transmissions[i]);
+        
+        for (size_t j = 0; j < mCodes.size(); j++) {
+            int mcodeLength = huffman.getCompressedSize(mCodes[j]);
+            double averageLength = huffman.getAverageEncodingLength();
+            
+            // Threshold: if mcode encoding is more than 2x the average, it's suspicious
+            double threshold = 2.0;
+            bool suspicious = mcodeLength > threshold * averageLength;
+            
+            if (suspicious) {
+                cout << "sospechoso " << mcodeLength << "\n";
+            } else {
+                cout << "no-sospechoso " << mcodeLength << "\n";
+            }
+        }
+    }
 
     return 0;
 }
