@@ -2,55 +2,69 @@
 #include <fstream>
 #include <string>
 #include <array>
-#include "subsequence.h"
+#include "subsequence.h" //parte 1
+#include "palindrome.h" //parte 2
 
 using namespace std;
 
-string readFile(const string& filePath)
-{
-    ifstream file(filePath);
-    if (!file.is_open()) {
-        cerr << "File could not be opened.\n";
+// Lectura: conserva solo [0-9A-F] del archivo (en cwd)
+static inline string readHexFile(const string& filename){
+    ifstream in(filename);
+    string s, line;
+    if(!in) return s;
+    while(getline(in, line)){
+        for(char c: line){
+            if(c>='0' && c<='9') s.push_back(c);
+            else if(c>='A' && c<='F') s.push_back(c);
+        }
     }
-    string content;
-    getline(file, content);
-
-    return content;
+    return s;
 }
 
 int main()
 {
-    const string mCodePaths[3] = {
-        "../txts/mcode1.txt",
-        "../txts/mcode2.txt",
-        "../txts/mcode3.txt"
-    };
-
-    const string transmissionPaths[2] = {
-        "../txts/transmission1.txt",
-        "../txts/transmission2.txt"
-    };
+    const array<string, 3> mcodeNames = {"mcode1.txt", "mcode2.txt", "mcode3.txt"};
+    const array<string, 2> transNames = {"transmission1.txt", "transmission2.txt"};
 
     array<string, 3> mCodes;
     array<string, 2> transmissions;
 
-    for (size_t i = 0; i < mCodes.size(); i++) {
-        mCodes[i] = readFile(mCodePaths[i]);
+    for (size_t i = 0; i < mCodes.size(); ++i) {
+        mCodes[i] = readHexFile(mcodeNames[i]);
     }
-    for (size_t i = 0; i < transmissions.size(); i++) {
-        transmissions[i] = readFile(transmissionPaths[i]);
+    for (size_t i = 0; i < transmissions.size(); ++i) {
+        transmissions[i] = readHexFile(transNames[i]);
     }
 
-    // Subsequence check
+    const string& t1 = transmissions[0];
+    const string& t2 = transmissions[1];
+    const string& m1 = mCodes[0];
+    const string& m2 = mCodes[1];
+    const string& m3 = mCodes[2];
+
+    // ---------- Parte 1: Subsequence check --------
     for (size_t i = 0; i < transmissions.size(); i++) {
         for (size_t j = 0; j < mCodes.size(); j++) {
             if (const int idx = subsecuenceIdx(transmissions[i], mCodes[j]); idx != -1) {
-                cout << "Found malicious code " << mCodes[j] << " in " << transmissionPaths[i] << " at index: " << idx << "\n";
+                cout << "Found malicious code " << mCodes[j] << " in " << transNames[i] << " at index: " << idx << "\n";
             } else {
-                cout << "Malicious code " << mCodes[j] << " not found in " << transmissionPaths[i] << "\n";
+                cout << "Malicious code " << mCodes[j] << " not found in " << transNames[i] << "\n";
             }
         }
     }
+     // -------- Parte 2: Manacher --------
+    {
+        auto a = longestPalindrome1Based(t1);
+        auto b = longestPalindrome1Based(t2);
+        cout << a.l1 << " " << a.r1 << "\n";
+        cout << b.l1 << " " << b.r1 << "\n";
+    }
+
+    // -------- Parte 3: SA + LCP --------
+
+
+    // -------- Parte 4: Huffman --------
+
 
     return 0;
 }
