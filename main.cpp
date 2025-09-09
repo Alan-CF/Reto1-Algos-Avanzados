@@ -4,6 +4,7 @@
 #include <array>
 #include "subsequence.h" //parte 1
 #include "palindrome.h" //parte 2
+#include "lcs.h" //parte 3
 #include "huffman.h" //parte 4
 
 using namespace std;
