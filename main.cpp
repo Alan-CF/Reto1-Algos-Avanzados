@@ -24,8 +24,8 @@ static inline string readHexFile(const string& filename){
 
 int main()
 {
-    const array<string, 3> mcodeNames = {"mcode1.txt", "mcode2.txt", "mcode3.txt"};
-    const array<string, 2> transNames = {"transmission1.txt", "transmission2.txt"};
+    const array<string, 3> mcodeNames = {"txts/mcode1.txt", "txts/mcode2.txt", "txts/mcode3.txt"};
+    const array<string, 2> transNames = {"txts/transmission1.txt", "txts/transmission2.txt"};
 
     array<string, 3> mCodes;
     array<string, 2> transmissions;
