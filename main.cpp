@@ -25,10 +25,9 @@ static inline string readHexFile(const string& filename){
 
 // Función para encontrar el substring común más largo entre dos transmisiones
 void findLCS(const string& t1, const string& t2) {
-    // Llamada a la función de lcs.h para encontrar el LCS
+
     LCSAns result = longestCommonSubstringPosInS1(t1, t2);
 
-    // Mostrar la posición inicial y la longitud del LCS
     cout << "Longest Common Substring found in transmission1 at position: "
          << result.l1 << " with length: " << (result.r1 - result.l1) << endl;
 }
