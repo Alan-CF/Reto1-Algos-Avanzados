@@ -23,6 +23,17 @@ static inline string readHexFile(const string& filename){
     return s;
 }
 
+// Función para encontrar el substring común más largo entre dos transmisiones
+void findLCS(const string& t1, const string& t2) {
+    // Llamada a la función de lcs.h para encontrar el LCS
+    LCSAns result = longestCommonSubstringPosInS1(t1, t2);
+
+    // Mostrar la posición inicial y la longitud del LCS
+    cout << "Longest Common Substring found in transmission1 at position: "
+         << result.l1 << " with length: " << (result.r1 - result.l1) << endl;
+}
+
+
 int main()
 {
     const array<string, 3> mcodeNames = {"../txts/mcode1.txt", "../txts/mcode2.txt", "../txts/mcode3.txt"};
@@ -45,7 +56,6 @@ int main()
     const string& m3 = mCodes[2];
 
     // ---------- Parte 1: Subsequence check --------
-    // Part 1 - Subsequence check
     for (size_t i = 0; i < transmissions.size(); i++) {
         for (size_t j = 0; j < mCodes.size(); j++) {
             if (const int idx = subsecuenceIdx(transmissions[i], mCodes[j]); idx != -1) {
@@ -64,12 +74,12 @@ int main()
     }
 
     // -------- Parte 3: SA + LCP --------
+    cout << "---------- Parte 3: Longest Common Substring --------" << endl;
+    findLCS(t1, t2);
 
 
     // -------- Parte 4: Huffman --------
 
-
-    // Part 4 - Huffman Coding
     for (size_t i = 0; i < transmissions.size(); i++) {
         HuffmanCoding huffman;
         huffman.buildFromText(transmissions[i]);
