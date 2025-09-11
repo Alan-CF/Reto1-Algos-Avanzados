@@ -36,8 +36,8 @@ void findLCS(const string& t1, const string& t2) {
 
 int main()
 {
-    const array<string, 3> mcodeNames = {"../txts/mcode1.txt", "../txts/mcode2.txt", "../txts/mcode3.txt"};
-    const array<string, 2> transNames = {"../txts/transmission1.txt", "../txts/transmission2.txt"};
+    const array<string, 3> mcodeNames = {"txts/mcode1.txt", "txts/mcode2.txt", "txts/mcode3.txt"};
+    const array<string, 2> transNames = {"txts/transmission1.txt", "txts/transmission2.txt"};
 
     array<string, 3> mCodes;
     array<string, 2> transmissions;
@@ -74,8 +74,11 @@ int main()
     }
 
     // -------- Parte 3: SA + LCP --------
-    cout << "---------- Parte 3: Longest Common Substring --------" << endl;
-    findLCS(t1, t2);
+    {
+        cout << "---------- Parte 3: Longest Common Substring --------" << endl;
+        auto lcs1 = longestCommonSubstringPosInS1(t1, t2);
+        cout << "Longest Common Substring found in transmission1 at position: " << lcs1.l1 << " with length: " << (lcs1.r1 - lcs1.l1 + 1) << endl;
+    }
 
 
     // -------- Parte 4: Huffman --------
