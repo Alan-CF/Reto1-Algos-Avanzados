@@ -45,7 +45,6 @@ int main()
     const string& m3 = mCodes[2];
 
     // ---------- Parte 1: Subsequence check --------
-    // Part 1 - Subsequence check
     for (size_t i = 0; i < transmissions.size(); i++) {
         for (size_t j = 0; j < mCodes.size(); j++) {
             if (const int idx = subsecuenceIdx(transmissions[i], mCodes[j]); idx != -1) {
@@ -68,8 +67,6 @@ int main()
 
     // -------- Parte 4: Huffman --------
 
-
-    // Part 4 - Huffman Coding
     for (size_t i = 0; i < transmissions.size(); i++) {
         HuffmanCoding huffman;
         huffman.buildFromText(transmissions[i]);
