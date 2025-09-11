@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric>
 
+
 using namespace std;
 
 struct LCSAns { long long l1, r1; };
